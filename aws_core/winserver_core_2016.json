@@ -1,0 +1,63 @@
+{
+  "variables": {
+    "aws_access_key": "{{env `AWS_ACCESS_KEY_ID`}}",
+    "aws_secret_key": "{{env `AWS_SECRET_ACCESS_KEY`}}",
+    "build_id": null,
+    "build_name": null,
+    "vpc_id": "",
+    "subnet_id": "",
+    "security_group_ids": ""
+  },
+  "builders": [
+    {
+      "communicator": "winrm",
+      "disable_stop_instance": true,
+      "region": "eu-west-1",
+      "type": "amazon-ebs",
+      "windows_password_timeout": "60m",
+      "winrm_insecure": "true",
+      "winrm_port": "5985",
+      "winrm_username": "administrator",
+      "source_ami_filter": {
+        "filters": {
+          "virtualization-type": "hvm",
+          "name": "Windows*2016*English*Core*Base*",
+          "root-device-type": "ebs",
+          "platform": "windows"
+        },
+        "owners": [
+          "amazon"
+        ],
+        "most_recent": true
+      },
+      "instance_type": "t2.micro",
+      "ami_name": "win2016-core-{{timestamp}}",
+      "vpc_id": "{{user `vpc_id`}}",
+      "subnet_id": "{{user `subnet_id`}}",
+      "security_group_ids": "{{user `security_group_ids`}}",
+      "associate_public_ip_address": true
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "powershell",
+      "scripts": [
+        "provisioners/powershell/dotnet_core.ps1"
+      ]
+    },
+    {
+      "type": "powershell",
+      "inline": [
+        "C:\\ProgramData\\Amazon\\EC2-Windows\\Launch\\Scripts\\InitializeInstance.ps1 -Schedule",
+        "C:\\ProgramData\\Amazon\\EC2-Windows\\Launch\\Scripts\\SysprepInstance.ps1"
+      ]
+    }
+  ],
+  "post-processors": [
+    {
+      "type": "manifest",
+      "output": "packer-manifest.json",
+      "strip_path": true
+    }
+  ]
+}
