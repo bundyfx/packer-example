@@ -16,8 +16,10 @@
       "type": "amazon-ebs",
       "windows_password_timeout": "60m",
       "winrm_insecure": "true",
-      "winrm_port": "5985",
+      "winrm_port": "5986",
+      "winrm_use_ssl": "true",
       "winrm_username": "administrator",
+      "user_data_file": "provisioners/powershell/enable_winrm_ssl.ps1",
       "source_ami_filter": {
         "filters": {
           "virtualization-type": "hvm",
@@ -56,7 +58,7 @@
   "post-processors": [
     {
       "type": "manifest",
-      "output": "packer-manifest.json",
+      "output": "packer-win2016-manifest.json",
       "strip_path": true
     }
   ]
