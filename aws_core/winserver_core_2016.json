@@ -55,12 +55,5 @@
         "C:\\ProgramData\\Amazon\\EC2-Windows\\Launch\\Scripts\\SysprepInstance.ps1"
       ]
     }
-  ],
-  "post-processors": [
-    {
-      "type": "manifest",
-      "output": "packer-win2016-manifest.json",
-      "strip_path": true
-    }
   ]
 }

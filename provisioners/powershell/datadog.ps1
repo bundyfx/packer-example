@@ -17,6 +17,7 @@ $MSIArguments = @(
     $logFile
 )
 Start-Process "msiexec.exe" -ArgumentList $MSIArguments -Wait -NoNewWindow
+Start-Sleep 15
 
 Write-Output "Stop the DataDog Service"
 Stop-Service -Name DatadogAgent -Force
