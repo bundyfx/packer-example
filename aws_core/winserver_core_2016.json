@@ -44,7 +44,8 @@
     {
       "type": "powershell",
       "scripts": [
-        "provisioners/powershell/dotnet_core.ps1"
+        "provisioners/powershell/dotnet_core.ps1",
+        "provisioners/powershell/datadog.ps1"
       ]
     },
     {
