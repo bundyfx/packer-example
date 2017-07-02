@@ -19,7 +19,7 @@
       "winrm_port": "5986",
       "winrm_use_ssl": "true",
       "winrm_username": "administrator",
-      "user_data_file": "provisioners/powershell/enable_winrm_ssl.ps1",
+      "user_data_file": "provisioners/powershell/enable_winrm.ps1",
       "source_ami_filter": {
         "filters": {
           "virtualization-type": "hvm",
